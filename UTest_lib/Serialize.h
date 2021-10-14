@@ -2,7 +2,7 @@
 #define MYAPPLICATION_SERIALIZE_H
 
 #include <list>
-#include "../App_lib/Application.h"
+//#include "../App_lib/Application.h"
 
 namespace Serialize {
 

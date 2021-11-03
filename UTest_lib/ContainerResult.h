@@ -1,5 +1,5 @@
-#ifndef MYAPPLICATION_CONTAINERRESULT_H
-#define MYAPPLICATION_CONTAINERRESULT_H
+#ifndef UTEST_CONTAINERRESULT_H
+#define UTEST_CONTAINERRESULT_H
 
 enum class ContainerResult {
     OK,
@@ -8,4 +8,4 @@ enum class ContainerResult {
     MAKE_ERR
 };
 
-#endif //MYAPPLICATION_CONTAINERRESULT_H
+#endif

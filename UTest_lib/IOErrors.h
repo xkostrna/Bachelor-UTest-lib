@@ -6,4 +6,4 @@ namespace IOErrors {
 }
 
 
-#endif //MYAPPLICATION_IOERRORS_H
+#endif

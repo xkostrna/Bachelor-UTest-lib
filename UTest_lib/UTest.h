@@ -1,5 +1,5 @@
-#ifndef MYAPPLICATION_UTEST_H
-#define MYAPPLICATION_UTEST_H
+#ifndef UTEST_UTEST_H
+#define UTEST_UTEST_H
 
 #include <string>
 #include <iostream>
@@ -32,11 +32,11 @@ protected:
         const ContainerResult containerResult = UnitTestManagement::getContainerReturnCode();
         if (containerResult == ContainerResult::OK) {
             tryDeserialize(testName);
-        }
-        else if (containerResult == ContainerResult::CODE_TIMEOUT) {
+        } else if (containerResult == ContainerResult::CODE_TIMEOUT) {
             UTestResult::add(testName, TestCase::FAILED, 0, "Code timeout");
-        }
-        else {
+        } else if (containerResult == ContainerResult::MAKE_ERR) {
+            UTestResult::add(testName, TestCase::FAILED, 0, "Container make error");
+        } else {
             UTestResult::add(testName, TestCase::FAILED, 0, "Run time error");
         }
         UnitTestManagement::recreateSharedDirectory();

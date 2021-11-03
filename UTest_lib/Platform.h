@@ -1,5 +1,5 @@
-#ifndef MYAPPLICATION_PLATFORM_H
-#define MYAPPLICATION_PLATFORM_H
+#ifndef UTEST_PLATFORM_H
+#define UTEST_PLATFORM_H
 
 #if defined(_WIN32) || defined(_WIN64)
 #define OS_WIN
@@ -7,4 +7,4 @@
 #define OS_LINUX
 #endif
 
-#endif //MYAPPLICATION_PLATFORM_H
+#endif

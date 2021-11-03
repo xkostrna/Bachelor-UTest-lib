@@ -1,5 +1,5 @@
-#ifndef MYAPPLICATION_UTESTRESULT_H
-#define MYAPPLICATION_UTESTRESULT_H
+#ifndef UTEST_UTESTRESULT_H
+#define UTEST_UTESTRESULT_H
 
 #include <string>
 #include <list>
@@ -20,4 +20,4 @@ public:
 };
 
 
-#endif //MYAPPLICATION_UTESTRESULT_H
+#endif

@@ -1,8 +1,7 @@
-#ifndef MYAPPLICATION_SERIALIZE_H
-#define MYAPPLICATION_SERIALIZE_H
+#ifndef UTEST_SERIALIZE_H
+#define UTEST_SERIALIZE_H
 
 #include <list>
-//#include "../App_lib/Application.h"
 
 namespace Serialize {
 

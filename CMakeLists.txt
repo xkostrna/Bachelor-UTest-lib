@@ -22,4 +22,5 @@ add_library(UTest STATIC
         UTest_lib/UTestResult.cpp
         UTest_lib/UTestResult.h
         )
+
 set_target_properties(UTest PROPERTIES LINKER_LANGUAGE CXX)

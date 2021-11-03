@@ -1,9 +1,9 @@
-#ifndef MYAPPLICATION_TESTCASE_H
-#define MYAPPLICATION_TESTCASE_H
+#ifndef UTEST_TESTCASE_H
+#define UTEST_TESTCASE_H
 
 enum class TestCase {
     FAILED,
     PASSED
 };
 
-#endif //MYAPPLICATION_TESTCASE_H
+#endif

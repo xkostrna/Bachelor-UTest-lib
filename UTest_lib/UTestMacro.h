@@ -1,5 +1,5 @@
-#ifndef MYAPPLICATION_UTESTMACRO_H
-#define MYAPPLICATION_UTESTMACRO_H
+#ifndef UTEST_UTESTMACRO_H
+#define UTEST_UTESTMACRO_H
 
 #define ASSERT_VALUES(x)                                                        \
 if (!(x)) {                                                                     \
@@ -22,4 +22,4 @@ public:                                                   \
     type                                                  \
 
 
-#endif //MYAPPLICATION_UTESTMACRO_H
+#endif

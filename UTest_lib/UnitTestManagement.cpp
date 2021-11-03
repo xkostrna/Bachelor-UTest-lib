@@ -7,8 +7,7 @@
 void UnitTestManagement::runDocker() {
     const std::string winFolder = Paths::getWindowsSharedFolder();
     const std::string appFolder = Paths::getAppFolder();
-    const std::string excludeFolder = R"(C:\Users\kostr\Bakalarka\list.txt)";
-    const std::string copyCommand{"xcopy "+appFolder+" "+winFolder+" /e /q /exclude:"+excludeFolder};
+    const std::string copyCommand{"xcopy "+appFolder+" "+winFolder+" /e /q"};
     system(copyCommand.c_str());
     const std::string runCommand{"docker container run -ti -v "+winFolder+":/Program/Share appimage python3 ../run_script.py"};
     system(runCommand.c_str());

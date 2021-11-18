@@ -19,9 +19,9 @@ public:
 
 protected:
     void run(const std::string& testName) {
-        #if defined OS_WIN
+        #if defined PLATFORM_USER
             this->runWindows(testName);
-        #elif defined OS_LINUX
+        #elif defined PLATFORM_CONTAINER
             this->runContainer(testName);
         #endif
     }

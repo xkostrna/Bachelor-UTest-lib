@@ -62,9 +62,9 @@ ContainerResult UnitTestManagement::getContainerReturnCode() {
 
 void UnitTestManagement::recreateSharedDirectory() {
     #if defined (WINDOWS)
-        system(("rmdir "+Paths::getWindowsSharedFolder()+" /S /Q").c_str());
+        system(("rmdir "+Paths::getSharedFolder()+" /S /Q").c_str());
     #elif defined (UNIX)
-        system(("rm -rf "+Paths::getWindowsSharedFolder()).c_str());
+        system(("rm -rf "+Paths::getSharedFolder()).c_str());
     #endif
     system(("mkdir "+ Paths::getSharedFolder()).c_str());
     std::cout << "-----------------" << std::endl;

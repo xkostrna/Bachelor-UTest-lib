@@ -7,9 +7,28 @@
 void UnitTestManagement::runDocker() {
     const std::string winFolder = Paths::getWindowsSharedFolder();
     const std::string appFolder = Paths::getAppFolder();
-    const std::string copyCommand{"xcopy "+appFolder+" "+winFolder+" /e /q"};
+    std::string copyCommand;
+
+    #if defined WINDOWS
+        copyCommand = "xcopy "+appFolder+" "+winFolder+" /e /q";
+    #elif defined UNIX
+        copyCommand = "cp -r "+appFolder+"/* "+winFolder;
+    #endif
+
     system(copyCommand.c_str());
-    const std::string runCommand{"docker container run -ti -v "+winFolder+":/Program/Share appimage python3 ../run_script.py"};
+    std::string runCommand;
+
+    #if defined WINDOWS
+        runCommand = "docker container run -ti -v "+winFolder+":/Program/Share appimage python3 ../run_script.py";
+    #elif defined UNIX
+        runCommand = "docker container run -ti --user \"$(id -u):$(id -g\") -v "+winFolder+":/Program/Share appimage python3 ../run_script.py";
+    #endif
+
+    if(copyCommand.length() == 0) {
+        std::cerr << "Platform not defined please use Windows or Unix based OS" << std::endl;
+        exit(-1);
+    }
+
     system(runCommand.c_str());
 }
 

@@ -9,8 +9,8 @@
 
 #if defined (_WIN32) || (_WIN64)
 #define WINDOWS
-#elif defined (__linux)
-#define LINUX
+#elif defined (__unix__)
+#define UNIX
 #endif
 
 #endif

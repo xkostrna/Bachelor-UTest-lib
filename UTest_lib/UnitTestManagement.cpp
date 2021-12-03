@@ -33,6 +33,16 @@ void UnitTestManagement::runDocker() {
 }
 
 ContainerResult UnitTestManagement::getContainerReturnCode() {
+    std::string operand;
+
+    #if defined WINDOWS
+        operand = "\\";
+    #elif defined UNIX
+        operand = "/";
+    #endif
+
+    const std::string errorFile = Paths::getWindowsSharedFolder() + operand + "err_output.txt";
+
     const std::string errorFile{Paths::getWindowsSharedFolder()+R"(\err_output.txt)"};
     std::ifstream inputStream{errorFile};
     int outputValue{0};

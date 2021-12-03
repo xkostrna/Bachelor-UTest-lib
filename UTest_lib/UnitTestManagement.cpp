@@ -15,6 +15,11 @@ void UnitTestManagement::runDocker() {
         copyCommand = "cp -r "+appFolder+"/* "+winFolder;
     #endif
 
+    if(copyCommand.length() == 0) {
+        std::cerr << "Platform not defined please use Windows or Unix based OS" << std::endl;
+        exit(-1);
+    }
+
     system(copyCommand.c_str());
     std::string runCommand;
 
@@ -23,11 +28,6 @@ void UnitTestManagement::runDocker() {
     #elif defined (UNIX)
         runCommand = "docker container run -ti --user \"$(id -u):$(id -g\") -v "+winFolder+":/Program/Share appimage python3 ../run_script.py";
     #endif
-
-    if(copyCommand.length() == 0) {
-        std::cerr << "Platform not defined please use Windows or Unix based OS" << std::endl;
-        exit(-1);
-    }
 
     system(runCommand.c_str());
 }
@@ -41,9 +41,7 @@ ContainerResult UnitTestManagement::getContainerReturnCode() {
         operand = "/";
     #endif
 
-    const std::string errorFile = Paths::getWindowsSharedFolder() + operand + "err_output.txt";
-
-    const std::string errorFile{Paths::getWindowsSharedFolder()+R"(\err_output.txt)"};
+    const std::string errorFile{Paths::getWindowsSharedFolder() + operand + "err_output.txt"};
     std::ifstream inputStream{errorFile};
     int outputValue{0};
     if (inputStream.good()) {
@@ -82,13 +80,13 @@ static constexpr char testNameFile[] = "test_name.txt";
 void UnitTestManagement::writeTestNameToFile(const std::string &testName) {
     std::string operand;
 
-    #if defined WINDOWS
+    #if defined (WINDOWS)
         operand = "\\";
-    #elif defined UNIX
+    #elif defined (UNIX)
         operand = "/";
     #endif
 
-    const std::string outputPath = Paths::getWindowsSharedFolder() + operand + testNameFile;
+    const std::string outputPath{Paths::getWindowsSharedFolder() + operand + testNameFile};
     std::ofstream outputStream(outputPath);
     if (outputStream.good()) {
         outputStream << testName;

@@ -5,12 +5,20 @@
 #include <list>
 #include "Paths.h"
 #include "IOErrors.h"
-
+#include "Platform.h"
 
 static constexpr char serializeFileName[] = "output.txt";
 
 std::string getDeserializeFilePath() {
-    const std::string & outputFileDirectory{Paths::getWindowsSharedFolder()+"\\"+serializeFileName};
+    std::string operand;
+
+    #if defined (WINDOWS)
+        operand = "\\";
+    #elif defined (UNIX)
+        operand = "/";
+    #endif
+
+    const std::string & outputFileDirectory{Paths::getWindowsSharedFolder() + operand + serializeFileName};
     return outputFileDirectory;
 }
 

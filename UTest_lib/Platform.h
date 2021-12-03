@@ -7,4 +7,10 @@
 #define PLATFORM_USER
 #endif
 
+#if defined (_WIN32) || (_WIN64)
+#define WINDOWS
+#elif defined (__linux)
+#define LINUX
+#endif
+
 #endif

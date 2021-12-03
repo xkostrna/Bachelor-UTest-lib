@@ -11,7 +11,7 @@ if (!(x)) {                                                                     
 #define INSTANCE_NAME(row) NAME_CONCATENATION(instance, row)
 #define END_TEST } INSTANCE_NAME(__LINE__);
 #define CONTAINER container() override
-#define WINDOWS(param) void windows(param) override
+#define USER(param) void windows(param) override
 
 #define TEST(type, name)                                  \
 class CLASS_NAME(__LINE__) : public UTest<type> {         \

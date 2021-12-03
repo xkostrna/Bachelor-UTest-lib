@@ -20,13 +20,13 @@ public:
 protected:
     void run(const std::string& testName) {
         #if defined PLATFORM_USER
-            this->runWindows(testName);
+            this->runUser(testName);
         #elif defined PLATFORM_CONTAINER
             this->runContainer(testName);
         #endif
     }
 
-    void runWindows(const std::string& testName) {
+    void runUser(const std::string& testName) {
         UnitTestManagement::writeTestNameToFile(testName);
         UnitTestManagement::runDocker();
         const ContainerResult containerResult = UnitTestManagement::getContainerReturnCode();

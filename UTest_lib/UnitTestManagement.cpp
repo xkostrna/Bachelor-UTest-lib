@@ -10,9 +10,9 @@ void UnitTestManagement::runDocker() {
     std::string copyCommand;
 
     #if defined (WINDOWS)
-        copyCommand = "xcopy "+appFolder+" "+winFolder+" /e /q";
+        copyCommand = "xcopy "+appFolder+" "+userFolder+" /e /q";
     #elif defined (UNIX)
-        copyCommand = "cp -r "+appFolder+"/* "+winFolder;
+        copyCommand = "cp -r "+appFolder+"/* "+userFolder;
     #endif
 
     if(copyCommand.length() == 0) {
@@ -24,9 +24,9 @@ void UnitTestManagement::runDocker() {
     std::string runCommand;
 
     #if defined (WINDOWS)
-        runCommand = "docker container run -ti -v "+winFolder+":/Program/Share appimage python3 ../run_script.py";
+        runCommand = "docker container run -ti -v "+userFolder+":/Program/Share appimage python3 ../run_script.py";
     #elif defined (UNIX)
-        runCommand = "docker container run -ti --user \"$(id -u):$(id -g\") -v "+winFolder+":/Program/Share appimage python3 ../run_script.py";
+        runCommand = "docker container run -ti --user \"$(id -u):$(id -g)\" -v "+userFolder+":/Program/Share appimage python3 ../run_script.py";
     #endif
 
     system(runCommand.c_str());

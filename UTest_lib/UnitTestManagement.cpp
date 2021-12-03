@@ -5,7 +5,7 @@
 #include "IOErrors.h"
 
 void UnitTestManagement::runDocker() {
-    const std::string winFolder = Paths::getWindowsSharedFolder();
+    const std::string winFolder = Paths::getSharedFolder();
     const std::string appFolder = Paths::getAppFolder();
     std::string copyCommand;
 
@@ -41,7 +41,7 @@ ContainerResult UnitTestManagement::getContainerReturnCode() {
         operand = "/";
     #endif
 
-    const std::string errorFile{Paths::getWindowsSharedFolder() + operand + "err_output.txt"};
+    const std::string errorFile{Paths::getSharedFolder() + operand + "err_output.txt"};
     std::ifstream inputStream{errorFile};
     int outputValue{0};
     if (inputStream.good()) {
@@ -66,7 +66,7 @@ void UnitTestManagement::recreateSharedDirectory() {
     #elif defined (UNIX)
         system(("rm -rf "+Paths::getWindowsSharedFolder()).c_str());
     #endif
-    system(("mkdir "+Paths::getWindowsSharedFolder()).c_str());
+    system(("mkdir "+ Paths::getSharedFolder()).c_str());
     std::cout << "-----------------" << std::endl;
 }
 
@@ -86,7 +86,7 @@ void UnitTestManagement::writeTestNameToFile(const std::string &testName) {
         operand = "/";
     #endif
 
-    const std::string outputPath{Paths::getWindowsSharedFolder() + operand + testNameFile};
+    const std::string outputPath{Paths::getSharedFolder() + operand + testNameFile};
     std::ofstream outputStream(outputPath);
     if (outputStream.good()) {
         outputStream << testName;

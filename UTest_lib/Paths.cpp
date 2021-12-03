@@ -16,6 +16,6 @@ std::string Paths::getAppFolder() {
     return applicationFolderPath;
 }
 
-std::string Paths::getWindowsSharedFolder() {
+std::string Paths::getSharedFolder() {
     return sharedFolderPath;
 }

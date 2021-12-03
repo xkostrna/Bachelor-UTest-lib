@@ -9,7 +9,7 @@ namespace Paths {
     void setSharedFolder(const std::string & path);
 
     std::string getAppFolder();
-    std::string getWindowsSharedFolder();
+    std::string getSharedFolder();
 }
 
 #endif

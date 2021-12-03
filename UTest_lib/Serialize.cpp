@@ -18,7 +18,7 @@ std::string getDeserializeFilePath() {
         operand = "/";
     #endif
 
-    const std::string & outputFileDirectory{Paths::getWindowsSharedFolder() + operand + serializeFileName};
+    const std::string & outputFileDirectory{Paths::getSharedFolder() + operand + serializeFileName};
     return outputFileDirectory;
 }
 

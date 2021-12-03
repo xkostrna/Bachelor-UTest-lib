@@ -80,7 +80,16 @@ std::string & getRequiredTestName() {
 static constexpr char testNameFile[] = "test_name.txt";
 
 void UnitTestManagement::writeTestNameToFile(const std::string &testName) {
-    std::ofstream outputStream(Paths::getWindowsSharedFolder()+"\\"+testNameFile);
+    std::string operand;
+
+    #if defined WINDOWS
+        operand = "\\";
+    #elif defined UNIX
+        operand = "/";
+    #endif
+
+    const std::string outputPath = Paths::getWindowsSharedFolder() + operand + testNameFile;
+    std::ofstream outputStream(outputPath);
     if (outputStream.good()) {
         outputStream << testName;
     }

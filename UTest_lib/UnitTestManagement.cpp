@@ -9,18 +9,18 @@ void UnitTestManagement::runDocker() {
     const std::string appFolder = Paths::getAppFolder();
     std::string copyCommand;
 
-    #if defined WINDOWS
+    #if defined (WINDOWS)
         copyCommand = "xcopy "+appFolder+" "+winFolder+" /e /q";
-    #elif defined UNIX
+    #elif defined (UNIX)
         copyCommand = "cp -r "+appFolder+"/* "+winFolder;
     #endif
 
     system(copyCommand.c_str());
     std::string runCommand;
 
-    #if defined WINDOWS
+    #if defined (WINDOWS)
         runCommand = "docker container run -ti -v "+winFolder+":/Program/Share appimage python3 ../run_script.py";
-    #elif defined UNIX
+    #elif defined (UNIX)
         runCommand = "docker container run -ti --user \"$(id -u):$(id -g\") -v "+winFolder+":/Program/Share appimage python3 ../run_script.py";
     #endif
 
@@ -35,9 +35,9 @@ void UnitTestManagement::runDocker() {
 ContainerResult UnitTestManagement::getContainerReturnCode() {
     std::string operand;
 
-    #if defined WINDOWS
+    #if defined (WINDOWS)
         operand = "\\";
-    #elif defined UNIX
+    #elif defined (UNIX)
         operand = "/";
     #endif
 
@@ -63,7 +63,11 @@ ContainerResult UnitTestManagement::getContainerReturnCode() {
 }
 
 void UnitTestManagement::recreateSharedDirectory() {
-    system(("rmdir "+Paths::getWindowsSharedFolder()+" /S /Q").c_str());
+    #if defined (WINDOWS)
+        system(("rmdir "+Paths::getWindowsSharedFolder()+" /S /Q").c_str());
+    #elif defined (UNIX)
+        system(("rm -rf "+Paths::getWindowsSharedFolder()).c_str());
+    #endif
     system(("mkdir "+Paths::getWindowsSharedFolder()).c_str());
     std::cout << "-----------------" << std::endl;
 }

@@ -1,4 +1,5 @@
 #include "Paths.h"
+#include "Platform.h"
 
 static std::string applicationFolderPath;
 static std::string sharedFolderPath;

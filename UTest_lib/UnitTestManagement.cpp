@@ -3,9 +3,10 @@
 #include "UnitTestManagement.h"
 #include "Paths.h"
 #include "IOErrors.h"
+#include "Platform.h"
 
 void UnitTestManagement::runDocker() {
-    const std::string winFolder = Paths::getSharedFolder();
+    const std::string userFolder = Paths::getSharedFolder();
     const std::string appFolder = Paths::getAppFolder();
     std::string copyCommand;
 

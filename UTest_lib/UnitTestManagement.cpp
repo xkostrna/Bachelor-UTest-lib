@@ -101,7 +101,7 @@ void UnitTestManagement::removeContainers() {
     #if defined (WINDOWS)
         removeCommand = "PowerShell docker rm $(docker ps -a --filter ancestor=appimage -q) > $null";
     #elif defined (UNIX)
-        removeCommand = "docker rm $(docker ps -a --filter ancestor=appimage -q)";
+        removeCommand = "docker rm $(docker ps -a --filter ancestor=appimage -q) > /dev/null";
     #endif
     system(removeCommand.c_str());
 }

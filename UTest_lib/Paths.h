@@ -10,6 +10,7 @@ namespace Paths {
 
     std::string getAppFolder();
     std::string getSharedFolder();
+    std::string getPlatformSlash();
 }
 
 #endif

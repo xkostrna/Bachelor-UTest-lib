@@ -2,7 +2,7 @@
 #include <iostream>
 #include <algorithm>
 
-UTestResult::UTestResult(std::string testName, TestCase result, int line, std::string failureCase)
+UTestResult::UTestResult(std::string testName, UTestCase result, int line, std::string failureCase)
     : testName(std::move(testName))
     , result(result)
     , line(line)
@@ -13,7 +13,7 @@ std::list<UTestResult> & UTestResult::getResultsList() {
     return resultsList;
 }
 
-void UTestResult::add(std::string testName, TestCase result, int line, std::string failureCase) {
+void UTestResult::add(std::string testName, UTestCase result, int line, std::string failureCase) {
     std::list<UTestResult> & resultList{getResultsList()};
     UTestResult testResult(std::move(testName), result, line, std::move(failureCase));
     testResult.print();
@@ -22,8 +22,8 @@ void UTestResult::add(std::string testName, TestCase result, int line, std::stri
 
 void UTestResult::print() {
     std::cout << "test name : " << this->testName << std::endl;
-    std::cout << "result : " << (result == TestCase::PASSED ? "Passed" : "Failed" ) << std::endl;
-    if (result == TestCase::FAILED) {
+    std::cout << "result : " << (result == UTestCase::PASSED ? "Passed" : "Failed" ) << std::endl;
+    if (result == UTestCase::FAILED) {
         std::cout << "line : " << this->line << std::endl;
         std::cout << "failure case : " << this->failureCase << std::endl;
     }
@@ -34,7 +34,7 @@ void UTestResult::getInfo() {
     int passed{0};
     int failed{0};
     std::for_each(resultList.begin(), resultList.end(), [&passed, &failed](const UTestResult & uResult) {
-        if (uResult.result == TestCase::PASSED) {
+        if (uResult.result == UTestCase::PASSED) {
             passed++;
         }
         else {

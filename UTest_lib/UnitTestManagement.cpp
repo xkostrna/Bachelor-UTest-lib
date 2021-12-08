@@ -33,15 +33,7 @@ void UnitTestManagement::runDocker() {
 }
 
 ContainerResult UnitTestManagement::getContainerReturnCode() {
-    std::string operand;
-
-    #if defined (WINDOWS)
-        operand = "\\";
-    #elif defined (UNIX)
-        operand = "/";
-    #endif
-
-    const std::string errorFile{Paths::getSharedFolder() + operand + "err_output.txt"};
+    const std::string errorFile{Paths::getSharedFolder() + Paths::getPlatformSlash() + "err_output.txt"};
     std::ifstream inputStream{errorFile};
     int outputValue{0};
     if (inputStream.good()) {
@@ -78,15 +70,7 @@ std::string & getRequiredTestName() {
 static constexpr char testNameFile[] = "test_name.txt";
 
 void UnitTestManagement::writeTestNameToFile(const std::string &testName) {
-    std::string operand;
-
-    #if defined (WINDOWS)
-        operand = "\\";
-    #elif defined (UNIX)
-        operand = "/";
-    #endif
-
-    const std::string outputPath{Paths::getSharedFolder() + operand + testNameFile};
+    const std::string outputPath{Paths::getSharedFolder() + Paths::getPlatformSlash() + testNameFile};
     std::ofstream outputStream(outputPath);
     if (outputStream.good()) {
         outputStream << testName;

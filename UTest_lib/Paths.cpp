@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Paths.h"
 
 static std::string applicationFolderPath;
@@ -18,4 +17,14 @@ std::string Paths::getAppFolder() {
 
 std::string Paths::getSharedFolder() {
     return sharedFolderPath;
+}
+
+std::string Paths::getPlatformSlash() {
+    std::string slash;
+    #if defined (WINDOWS)
+    slash = "\\";
+    #elif defined (UNIX)
+    slash = "/";
+    #endif
+    return slash;
 }

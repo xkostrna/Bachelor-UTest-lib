@@ -7,7 +7,7 @@
 #include "UnitTestManagement.h"
 #include "AssertFailedException.h"
 #include "UTestResult.h"
-#include "TestCase.h"
+#include "UTestCase.h"
 #include "UTestMacro.h"
 #include "Platform.h"
 #include "ContainerResult.h"
@@ -33,11 +33,11 @@ protected:
         if (containerResult == ContainerResult::OK) {
             tryDeserialize(testName);
         } else if (containerResult == ContainerResult::CODE_TIMEOUT) {
-            UTestResult::add(testName, TestCase::FAILED, 0, "Code timeout");
+            UTestResult::add(testName, UTestCase::FAILED, 0, "Code timeout");
         } else if (containerResult == ContainerResult::MAKE_ERR) {
-            UTestResult::add(testName, TestCase::FAILED, 0, "Container make error");
+            UTestResult::add(testName, UTestCase::FAILED, 0, "Container make error");
         } else {
-            UTestResult::add(testName, TestCase::FAILED, 0, "Run time error");
+            UTestResult::add(testName, UTestCase::FAILED, 0, "Run time error");
         }
         UnitTestManagement::recreateSharedDirectory();
     }
@@ -51,20 +51,20 @@ protected:
     }
 
     virtual TYPE container() = 0;
-    virtual void windows(TYPE realValue) = 0;
+    virtual void user(TYPE realValue) = 0;
 
 private:
     void tryDeserialize(const std::string & testName) {
         try {
             TYPE realValue = Serialize::deserialize<TYPE>();
-            this->windows(realValue);
-            UTestResult::add(testName, TestCase::PASSED);
+            this->user(realValue);
+            UTestResult::add(testName, UTestCase::PASSED);
         }
         catch(const AssertFailedException & exception) {
-            UTestResult::add(testName, TestCase::FAILED, exception.getLine(), exception.getFailureCase());
+            UTestResult::add(testName, UTestCase::FAILED, exception.getLine(), exception.getFailureCase());
         }
         catch(...) {
-            UTestResult::add(testName, TestCase::FAILED, 0, "Unknown error");
+            UTestResult::add(testName, UTestCase::FAILED, 0, "Unknown error");
         }
     }
 };

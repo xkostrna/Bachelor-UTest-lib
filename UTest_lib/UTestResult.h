@@ -3,19 +3,19 @@
 
 #include <string>
 #include <list>
-#include "TestCase.h"
+#include "UTestCase.h"
 
 class UTestResult {
 private:
     const std::string testName;
-    const TestCase result;
+    const UTestCase result;
     const int line;
     const std::string failureCase;
-    UTestResult(std::string testName, TestCase result, int line = 0, std::string failureCase = "");
+    UTestResult(std::string testName, UTestCase result, int line = 0, std::string failureCase = "");
 public:
     static std::list<UTestResult> & getResultsList();
     void print();
-    static void add(std::string testName, TestCase result, int line = 0, std::string failureCase = "");
+    static void add(std::string testName, UTestCase result, int line = 0, std::string failureCase = "");
     static void getInfo();
 };
 

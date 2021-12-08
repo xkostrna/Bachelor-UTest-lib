@@ -5,5 +5,4 @@ namespace IOErrors {
     void printErrorMessage(const std::string & functionName, const int & line);
 }
 
-
 #endif

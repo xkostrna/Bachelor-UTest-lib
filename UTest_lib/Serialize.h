@@ -1,8 +1,6 @@
 #ifndef UTEST_SERIALIZE_H
 #define UTEST_SERIALIZE_H
 
-#include <list>
-
 namespace Serialize {
 
     template <typename T>

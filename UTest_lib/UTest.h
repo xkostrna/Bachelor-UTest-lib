@@ -39,6 +39,7 @@ protected:
         } else {
             UTestResult::add(testName, UTestCase::FAILED, 0, "Run time error");
         }
+        UnitTestManagement::removeContainers();
         UnitTestManagement::recreateSharedDirectory();
     }
 

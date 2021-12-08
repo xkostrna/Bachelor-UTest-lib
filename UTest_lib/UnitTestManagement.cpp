@@ -95,3 +95,8 @@ bool UnitTestManagement::isTestNameCorrect(const std::string &realTestName) {
     }
     return (getRequiredTestName() == realTestName);
 }
+
+void UnitTestManagement::removeContainers() {
+    std::string removeContainersCMD = "docker rm $(docker ps -a --filter ancestor=appimage -q)";
+    system(removeContainersCMD.c_str());
+}

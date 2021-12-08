@@ -8,13 +8,10 @@ namespace UnitTestManagement {
     //docker invoking commands
     void runDocker();
     ContainerResult getContainerReturnCode();
-
-    //DockerShareFolder/Test handling
     void recreateSharedDirectory();
-
-    //testName.txt handling
     void writeTestNameToFile(const std::string& testName);
     bool isTestNameCorrect(const std::string& realTestName);
+    void removeContainers();
 }
 
 #endif

@@ -97,6 +97,11 @@ bool UnitTestManagement::isTestNameCorrect(const std::string &realTestName) {
 }
 
 void UnitTestManagement::removeContainers() {
-    std::string removeContainersCMD = "docker rm $(docker ps -a --filter ancestor=appimage -q)";
-    system(removeContainersCMD.c_str());
+    static std::string removeCommand;
+    #if defined (WINDOWS)
+        removeCommand = "PowerShell docker rm $(docker ps -a --filter ancestor=appimage -q) > $null";
+    #elif defined (UNIX)
+        removeCommand = "docker rm $(docker ps -a --filter ancestor=appimage -q)";
+    #endif
+    system(removeCommand.c_str());
 }

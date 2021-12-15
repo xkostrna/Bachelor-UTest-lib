@@ -23,9 +23,9 @@ std::string Paths::getSharedFolder() {
 std::string Paths::getPlatformSlash() {
     std::string slash;
     #if defined (WINDOWS)
-    slash = "\\";
+        slash = "\\";
     #elif defined (UNIX)
-    slash = "/";
+        slash = "/";
     #endif
     return slash;
 }

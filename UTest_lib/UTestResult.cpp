@@ -1,6 +1,8 @@
 #include "UTestResult.h"
+#include "IOErrors.h"
 #include <iostream>
 #include <algorithm>
+#include <fstream>
 
 UTestResult::UTestResult(std::string testName, UTestCase result, int line, std::string failureCase)
     : testName(std::move(testName))
@@ -29,7 +31,16 @@ void UTestResult::print() {
     }
 }
 
-void UTestResult::getInfo() {
+void UTestResult::getInfo(bool toConsole, bool toFile, const std::string& path) {
+    if(toConsole) {
+        UTestResult::toConsole();
+    }
+    if(toFile) {
+        UTestResult::toFile(path);
+    }
+}
+
+std::vector<int> UTestResult::calculateResults() {
     std::list<UTestResult> & resultList = getResultsList();
     int passed{0};
     int failed{0};
@@ -41,8 +52,38 @@ void UTestResult::getInfo() {
             failed++;
         }
     });
+    return std::vector<int>{passed, failed};
+}
+
+void UTestResult::toConsole() {
+    std::list<UTestResult> & resultList = getResultsList();
+    std::vector<int> results = UTestResult::calculateResults();
     std::cout << "total tests : " << resultList.size() << std::endl;
-    std::cout << "passed tests : " << passed << std::endl;
-    std::cout << "failed tests : " << failed << std::endl;
-    std::cout << "success rate : " << (double(passed) / double(resultList.size())) * 100.0 << "%" << std::endl;
+    std::cout << "passed tests : " << results[0] << std::endl;
+    std::cout << "failed tests : " << results[1] << std::endl;
+    std::cout << "success rate : " << (double(results[0]) / double(resultList.size())) * 100.0 << "%" << std::endl;
+}
+
+void UTestResult::toFile(const std::string & path) {
+    std::ofstream outputSteam(path + Paths::getPlatformSlash() + "results.txt");
+    if(outputSteam.good()) {
+        std::list<UTestResult> & resultList = getResultsList();
+        std::vector<int> results = UTestResult::calculateResults();
+        for (const UTestResult & result : resultList) {
+            outputSteam << "test name : " << result.testName << std::endl;
+            outputSteam << "result : " << (result.result == UTestCase::PASSED ? "Passed" : "Failed" ) << std::endl;
+            if (result.result == UTestCase::FAILED) {
+                outputSteam << "line : " << result.line << std::endl;
+                outputSteam << "failure case : " << result.failureCase << std::endl;
+            }
+            outputSteam << "--------------------------" << std::endl;
+        }
+        outputSteam << "total tests : " << resultList.size() << std::endl;
+        outputSteam << "passed tests : " << results[0] << std::endl;
+        outputSteam << "failed tests : " << results[1] << std::endl;
+        outputSteam << "success rate : " << (double(results[0]) / double(resultList.size())) * 100.0 << "%" << std::endl;
+    } else {
+        IOErrors::printErrorMessage(__func__, __LINE__);
+    }
+    outputSteam.close();
 }

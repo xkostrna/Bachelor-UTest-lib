@@ -3,7 +3,9 @@
 
 #include <string>
 #include <list>
+#include <vector>
 #include "UTestCase.h"
+#include "Paths.h"
 
 class UTestResult {
 private:
@@ -12,11 +14,14 @@ private:
     const int line;
     const std::string failureCase;
     UTestResult(std::string testName, UTestCase result, int line = 0, std::string failureCase = "");
+    static std::vector<int> calculateResults();
+    static void toConsole();
+    static void toFile(const std::string & path);
 public:
     static std::list<UTestResult> & getResultsList();
     void print();
     static void add(std::string testName, UTestCase result, int line = 0, std::string failureCase = "");
-    static void getInfo();
+    static void getInfo(bool toConsole, bool toFile, const std::string& path = Paths::getAppFolder());
 };
 
 

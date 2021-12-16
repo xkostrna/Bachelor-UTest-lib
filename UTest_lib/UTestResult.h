@@ -21,7 +21,7 @@ public:
     static std::list<UTestResult> & getResultsList();
     void print();
     static void add(std::string testName, UTestCase result, int line = 0, std::string failureCase = "");
-    static void getInfo(bool toConsole, bool toFile, const std::string& path = Paths::getAppFolder());
+    static void getInfo(bool toFile = true, const std::string& path = Paths::getAppFolder());
 };
 
 

@@ -36,10 +36,8 @@ void UTestResult::print() {
     }
 }
 
-void UTestResult::getInfo(bool toConsole, bool toFile, const std::string& path) {
-    if(toConsole) {
-        UTestResult::toConsole();
-    }
+void UTestResult::getInfo(bool toFile, const std::string& path) {
+    UTestResult::toConsole();
     if(toFile) {
         UTestResult::toFile(path);
     }

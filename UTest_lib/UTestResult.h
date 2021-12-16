@@ -14,7 +14,7 @@ private:
     const int line;
     const std::string failureCase;
     UTestResult(std::string testName, UTestCase result, int line = 0, std::string failureCase = "");
-    static std::vector<int> calculateResults();
+    static struct results calculateResults();
     static void toConsole();
     static void toFile(const std::string & path);
 public:

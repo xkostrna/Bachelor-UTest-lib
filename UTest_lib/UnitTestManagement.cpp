@@ -11,7 +11,7 @@ void UnitTestManagement::runDocker() {
     std::string copyCommand;
 
     #if defined (WINDOWS)
-        copyCommand = "xcopy "+appFolder+" "+userFolder+" /e /q";
+        copyCommand = "xcopy "+appFolder+" "+userFolder+" /e /q options > nul";
     #elif defined (UNIX)
         copyCommand = "cp -r "+appFolder+"/* "+userFolder;
     #endif

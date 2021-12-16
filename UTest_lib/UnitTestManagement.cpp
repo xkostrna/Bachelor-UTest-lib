@@ -6,14 +6,14 @@
 #include "Platform.h"
 
 void UnitTestManagement::runDocker() {
-    const std::string userFolder = Paths::getSharedFolder();
+    const std::string sharedFolder = Paths::getSharedFolder();
     const std::string appFolder = Paths::getAppFolder();
     std::string copyCommand;
 
     #if defined (WINDOWS)
-        copyCommand = "xcopy "+appFolder+" "+userFolder+" /e /q options > nul";
+        copyCommand = "xcopy "+appFolder+" "+sharedFolder+" /e /q options > nul";
     #elif defined (UNIX)
-        copyCommand = "cp -r "+appFolder+"/* "+userFolder;
+        copyCommand = "cp -r "+appFolder+"/* "+sharedFolder;
     #endif
 
     if(copyCommand.length() == 0) {
@@ -25,9 +25,9 @@ void UnitTestManagement::runDocker() {
     std::string runCommand;
 
     #if defined (WINDOWS)
-        runCommand = "docker container run -ti -v "+userFolder+":/Program/Share appimage python3 ../run_script.py";
+        runCommand = "docker container run -ti -v "+sharedFolder+":/Program/Share appimage python3 ../run_script.py";
     #elif defined (UNIX)
-        runCommand = "docker container run -ti --user \"$(id -u):$(id -g)\" -v "+userFolder+":/Program/Share appimage python3 ../run_script.py";
+        runCommand = "docker container run -ti --user \"$(id -u):$(id -g)\" -v "+sharedFolder+":/Program/Share appimage python3 ../run_script.py";
     #endif
 
     system(runCommand.c_str());
@@ -71,6 +71,7 @@ std::string & getRequiredTestName() {
 static constexpr char testNameFile[] = "test_name.txt";
 
 void UnitTestManagement::writeTestNameToFile(const std::string &testName) {
+    std::cout << "test name : " << testName << std::endl;
     const std::string outputPath{Paths::getSharedFolder() + Paths::getPlatformSlash() + testNameFile};
     std::ofstream outputStream(outputPath);
     if (outputStream.good()) {

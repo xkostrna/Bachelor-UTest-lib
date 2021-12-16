@@ -28,7 +28,6 @@ void UTestResult::add(std::string testName, UTestCase result, int line, std::str
 }
 
 void UTestResult::print() {
-    std::cout << "test name : " << this->testName << std::endl;
     std::cout << "result : " << (result == UTestCase::PASSED ? "Passed" : "Failed" ) << std::endl;
     if (result == UTestCase::FAILED) {
         std::cout << "line : " << this->line << std::endl;

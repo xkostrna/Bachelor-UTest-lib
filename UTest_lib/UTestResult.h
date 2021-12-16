@@ -17,6 +17,7 @@ private:
     static struct results calculateResults();
     static void toConsole();
     static void toFile(const std::string & path);
+    static std::string getDate();
 public:
     static std::list<UTestResult> & getResultsList();
     void print();

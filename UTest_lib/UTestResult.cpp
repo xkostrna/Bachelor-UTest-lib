@@ -66,11 +66,22 @@ void UTestResult::toConsole() {
     std::cout << "success rate : " << (double(testResults.passed) / double(resultList.size())) * 100.0 << "%" << std::endl;
 }
 
+std::string UTestResult::getDate() {
+    time_t now = time(nullptr);
+    tm *ltm = localtime(&now);
+    std::stringstream sstream;
+    sstream << std::put_time(ltm, "%d-%m-%y");
+    return sstream.str();
+}
+
 void UTestResult::toFile(const std::string & path) {
-    std::ofstream outputSteam(path + Paths::getPlatformSlash() + "test-results.txt");
+    std::string date = UTestResult::getDate();
+    std::ofstream outputSteam(path + Paths::getPlatformSlash() + "TEST_RESULTS " + date + ".txt");
     if(outputSteam.good()) {
         std::list<UTestResult> & resultList = getResultsList();
         struct results testResults = UTestResult::calculateResults();
+        outputSteam << "Date : " << date << std::endl;
+        outputSteam << "--------------------------" << std::endl;
         for (const UTestResult & result : resultList) {
             outputSteam << "test name : " << result.testName << std::endl;
             outputSteam << "results : " << (result.result == UTestCase::PASSED ? "Passed" : "Failed" ) << std::endl;

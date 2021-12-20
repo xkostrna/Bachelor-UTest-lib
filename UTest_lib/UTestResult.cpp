@@ -77,27 +77,27 @@ std::string UTestResult::getDate() {
 
 void UTestResult::toFile(const std::string & path) {
     std::string date = UTestResult::getDate();
-    std::ofstream outputSteam(path + Paths::getPlatformSlash() + "TEST_RESULTS " + date + ".txt");
-    if(outputSteam.good()) {
+    std::ofstream outputStream(path + Paths::getPlatformSlash() + "TEST_RESULTS " + date + ".txt");
+    if(outputStream.good()) {
         std::list<UTestResult> & resultList = getResultsList();
         struct results testResults = UTestResult::calculateResults();
-        outputSteam << "Date : " << date << std::endl;
-        outputSteam << "--------------------------" << std::endl;
+        outputStream << "Date : " << date << std::endl;
+        outputStream << "--------------------------" << std::endl;
         for (const UTestResult & result : resultList) {
-            outputSteam << "test name : " << result.testName << std::endl;
-            outputSteam << "results : " << (result.result == UTestCase::PASSED ? "Passed" : "Failed" ) << std::endl;
+            outputStream << "test name : " << result.testName << std::endl;
+            outputStream << "results : " << (result.result == UTestCase::PASSED ? "Passed" : "Failed" ) << std::endl;
             if (result.result == UTestCase::FAILED) {
-                outputSteam << "line : " << result.line << std::endl;
-                outputSteam << "failure case : " << result.failureCase << std::endl;
+                outputStream << "line : " << result.line << std::endl;
+                outputStream << "failure case : " << result.failureCase << std::endl;
             }
-            outputSteam << "--------------------------" << std::endl;
+            outputStream << "--------------------------" << std::endl;
         }
-        outputSteam << "total tests : " << resultList.size() << std::endl;
-        outputSteam << "passed tests : " << testResults.passed << std::endl;
-        outputSteam << "failed tests : " << testResults.failed << std::endl;
-        outputSteam << "success rate : " << (double(testResults.passed) / double(resultList.size())) * 100.0 << "%" << std::endl;
+        outputStream << "total tests : " << resultList.size() << std::endl;
+        outputStream << "passed tests : " << testResults.passed << std::endl;
+        outputStream << "failed tests : " << testResults.failed << std::endl;
+        outputStream << "success rate : " << (double(testResults.passed) / double(resultList.size())) * 100.0 << "%" << std::endl;
     } else {
         IOErrors::printErrorMessage(__func__, __LINE__);
     }
-    outputSteam.close();
+    outputStream.close();
 }

@@ -37,10 +37,10 @@ void UTestResult::print() {
     }
 }
 
-void UTestResult::getInfo(bool toFile, const std::string& path) {
+void UTestResult::getInfo(bool toFile, const std::string& path, const std::string& fileName) {
     UTestResult::toConsole();
     if(toFile) {
-        UTestResult::toFile(path);
+        UTestResult::toFile(path, fileName);
     }
 }
 
@@ -71,13 +71,13 @@ std::string UTestResult::getDate() {
     time_t now = time(nullptr);
     tm *ltm = localtime(&now);
     std::stringstream sstream;
-    sstream << std::put_time(ltm, "%d-%m-%y");
+    sstream << std::put_time(ltm, "%Y-%m-%d %H-%M-%S");
     return sstream.str();
 }
 
-void UTestResult::toFile(const std::string & path) {
+void UTestResult::toFile(const std::string & path, const std::string& fileName) {
     std::string date = UTestResult::getDate();
-    std::ofstream outputStream(path + Paths::getPlatformSlash() + "TEST_RESULTS " + date + ".txt");
+    std::ofstream outputStream(path + Paths::getPlatformSlash() + fileName + " " + date + ".txt");
     if(outputStream.good()) {
         std::list<UTestResult> & resultList = getResultsList();
         struct results testResults = UTestResult::calculateResults();

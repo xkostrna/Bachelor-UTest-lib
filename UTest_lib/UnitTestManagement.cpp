@@ -16,11 +16,6 @@ void UnitTestManagement::runDocker() {
         copyCommand = "cp -r "+appFolder+"/* "+sharedFolder;
     #endif
 
-    if(copyCommand.length() == 0) {
-        std::cerr << "Platform not defined please use Windows or Unix based OS" << std::endl;
-        exit(-1);
-    }
-
     system(copyCommand.c_str());
     std::string runCommand;
 
@@ -84,6 +79,9 @@ void UnitTestManagement::writeTestNameToFile(const std::string &testName) {
 }
 
 bool UnitTestManagement::isTestNameCorrect(const std::string &realTestName) {
+    #if !defined(WINDOWS) && !defined(UNIX)
+    # error Platforma nie je definovana
+    #endif
     if (getRequiredTestName().empty()) {
         std::ifstream inputStream(testNameFile);
         if (inputStream.good()) {

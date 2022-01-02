@@ -79,9 +79,6 @@ void UnitTestManagement::writeTestNameToFile(const std::string &testName) {
 }
 
 bool UnitTestManagement::isTestNameCorrect(const std::string &realTestName) {
-    #if !defined(WINDOWS) && !defined(UNIX)
-    # error Platforma nie je definovana
-    #endif
     if (getRequiredTestName().empty()) {
         std::ifstream inputStream(testNameFile);
         if (inputStream.good()) {

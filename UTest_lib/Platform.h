@@ -14,7 +14,7 @@
 #endif
 
 #if !defined(WINDOWS) && !defined(UNIX)
-#   error Platform not defined, please use Windows or Unix based OS.auto
+#   error Platform not defined, please use Windows or Unix based OS.
 #endif
 
 #endif

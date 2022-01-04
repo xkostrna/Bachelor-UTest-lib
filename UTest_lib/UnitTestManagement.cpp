@@ -20,9 +20,9 @@ void UnitTestManagement::runDocker() {
     std::string runCommand;
 
     #if defined (WINDOWS)
-        runCommand = "docker container run -ti -v "+sharedFolder+":/Program/Share appimage python3 ../run_script.py";
+        runCommand = "docker container run -ti -v "+sharedFolder+":/Program/Share utest-image python3 ../run_script.py";
     #elif defined (UNIX)
-        runCommand = "docker container run -ti --user \"$(id -u):$(id -g)\" -v "+sharedFolder+":/Program/Share appimage python3 ../run_script.py";
+        runCommand = "docker container run -ti --user \"$(id -u):$(id -g)\" -v "+sharedFolder+":/Program/Share utest-image python3 ../run_script.py";
     #endif
 
     system(runCommand.c_str());
@@ -95,9 +95,9 @@ bool UnitTestManagement::isTestNameCorrect(const std::string &realTestName) {
 void UnitTestManagement::removeContainers() {
     static std::string removeCommand;
     #if defined (WINDOWS)
-        removeCommand = "PowerShell docker rm $(docker ps -a --filter ancestor=appimage -q) > $null";
+        removeCommand = "PowerShell docker rm $(docker ps -a --filter ancestor=utest-image -q) > $null";
     #elif defined (UNIX)
-        removeCommand = "docker rm $(docker ps -a --filter ancestor=appimage -q) > /dev/null";
+        removeCommand = "docker rm $(docker ps -a --filter ancestor=utest-image -q) > /dev/null";
     #endif
     system(removeCommand.c_str());
 }

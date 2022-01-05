@@ -22,4 +22,5 @@ add_library(UTest STATIC
         UTestResult.cpp
         UTestResult.h)
 
+add_definitions("-DSOURCE_PATH=\"${CMAKE_SOURCE_DIR}\"")
 set_target_properties(UTest PROPERTIES LINKER_LANGUAGE CXX)

@@ -1,3 +1,5 @@
+#include <iostream>
+#include <algorithm>
 #include "Paths.h"
 #include "Platform.h"
 
@@ -13,7 +15,20 @@ void Paths::setSharedFolder(const std::string & path) {
 }
 
 std::string Paths::getAppFolder() {
-    return applicationFolderPath;
+    #if defined (SOURCE_PATH) && defined (WINDOWS)
+        std::string output = SOURCE_PATH;
+        std::replace(output.begin(), output.end(), '/', '\\');
+        return output;
+    #elif defined(SOURCE_PATH) && defined (UNIX)
+        return SOURCE_PATH;
+    #else
+        if(applicationFolderPath.length() == 0) {
+            std::cerr << "Please use Paths::setAppFolder()" << std::endl;
+            exit(-1);
+        } else {
+            return applicationFolderPath;
+        }
+    #endif
 }
 
 std::string Paths::getSharedFolder() {

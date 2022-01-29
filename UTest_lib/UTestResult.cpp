@@ -45,7 +45,7 @@ void UTestResult::getInfo(bool toFile, const std::string& path, const std::strin
 }
 
 struct results UTestResult::calculateResults() {
-    std::list<UTestResult> & resultList = getResultsList();
+    std::list<UTestResult> & resultList{getResultsList()};
     struct results testResults;
     std::for_each(resultList.begin(), resultList.end(), [&testResults](const UTestResult & uResult) {
         if (uResult.result == UTestCase::PASSED) {
@@ -59,7 +59,7 @@ struct results UTestResult::calculateResults() {
 }
 
 void UTestResult::toConsole() {
-    std::list<UTestResult> & resultList = getResultsList();
+    std::list<UTestResult> & resultList{getResultsList()};
     struct results testResults = UTestResult::calculateResults();
     std::cout << "total tests : " << resultList.size() << std::endl;
     std::cout << "passed tests : " << testResults.passed << std::endl;
@@ -68,18 +68,18 @@ void UTestResult::toConsole() {
 }
 
 std::string UTestResult::getDate() {
-    time_t now = time(nullptr);
-    tm *ltm = localtime(&now);
+    time_t now{time(nullptr)};
+    tm *ltm{localtime(&now)};
     std::stringstream sstream;
     sstream << std::put_time(ltm, "%Y-%m-%d %H-%M-%S");
     return sstream.str();
 }
 
 void UTestResult::toFile(const std::string & path, const std::string& fileName) {
-    std::string date = UTestResult::getDate();
+    std::string date{UTestResult::getDate()};
     std::ofstream outputStream(path + Paths::getPlatformSlash() + fileName + " " + date + ".txt");
     if(outputStream.good()) {
-        std::list<UTestResult> & resultList = getResultsList();
+        std::list<UTestResult> & resultList{getResultsList()};
         struct results testResults = UTestResult::calculateResults();
         outputStream << "Date : " << date << std::endl;
         outputStream << "--------------------------" << std::endl;

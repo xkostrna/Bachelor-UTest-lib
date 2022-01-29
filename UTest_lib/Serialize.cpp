@@ -9,8 +9,7 @@
 static constexpr char serializeFileName[] = "output.txt";
 
 std::string getDeserializeFilePath() {
-    const std::string & outputFileDirectory{Paths::getSharedFolder() + Paths::getPlatformSlash() + serializeFileName};
-    return outputFileDirectory;
+    return {Paths::getSharedFolder() + Paths::getPlatformSlash() + serializeFileName};
 }
 
 template <typename T>

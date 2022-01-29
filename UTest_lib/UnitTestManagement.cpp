@@ -6,26 +6,25 @@
 #include "Platform.h"
 
 void UnitTestManagement::runDocker() {
-    const std::string sharedFolder = Paths::getSharedFolder();
-    const std::string appFolder = Paths::getAppFolder();
-    std::string copyCommand;
+    const std::string sharedFolder{Paths::getSharedFolder()};
+    const std::string appFolder{Paths::getAppFolder()};
+    std::string cmd;
 
     #if defined (WINDOWS)
-        copyCommand = "xcopy "+appFolder+" "+sharedFolder+" /e /q > nul";
+        cmd = "xcopy " + appFolder + " " + sharedFolder + " /e /q > nul";
     #elif defined (UNIX)
-        copyCommand = "cp -r "+appFolder+"/* "+sharedFolder;
+        cmd = "cp -r "+appFolder+"/* "+sharedFolder;
     #endif
 
-    system(copyCommand.c_str());
-    std::string runCommand;
+    system(cmd.c_str());
 
     #if defined (WINDOWS)
-        runCommand = "docker container run -ti -v "+sharedFolder+":/Program/Share utest-image python3 ../run_script.py";
+        cmd = "docker container run -ti -v " + sharedFolder + ":/Program/Share utest-image python3 ../run_script.py";
     #elif defined (UNIX)
-        runCommand = "docker container run -ti --user \"$(id -u):$(id -g)\" -v "+sharedFolder+":/Program/Share utest-image python3 ../run_script.py";
+        cmd = "docker container run -ti --user \"$(id -u):$(id -g)\" -v "+sharedFolder+":/Program/Share utest-image python3 ../run_script.py";
     #endif
 
-    system(runCommand.c_str());
+    system(cmd.c_str());
 }
 
 ContainerResult UnitTestManagement::getContainerReturnCode() {

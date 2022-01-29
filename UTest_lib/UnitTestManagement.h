@@ -5,7 +5,7 @@
 #include "ContainerResult.h"
 
 namespace UnitTestManagement {
-    //docker invoking commands
+
     void runDocker();
     ContainerResult getContainerReturnCode();
     void recreateSharedDirectory();

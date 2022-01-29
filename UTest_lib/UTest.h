@@ -29,7 +29,7 @@ protected:
     void runUser(const std::string& testName) {
         UnitTestManagement::writeTestNameToFile(testName);
         UnitTestManagement::runDocker();
-        const ContainerResult containerResult = UnitTestManagement::getContainerReturnCode();
+        const ContainerResult containerResult{UnitTestManagement::getContainerReturnCode()};
         if (containerResult == ContainerResult::OK) {
             tryDeserialize(testName);
         } else if (containerResult == ContainerResult::CODE_TIMEOUT) {

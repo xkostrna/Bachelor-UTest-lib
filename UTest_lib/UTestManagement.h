@@ -1,10 +1,10 @@
-#ifndef UTEST_UNITTESTMANAGEMENT_H
-#define UTEST_UNITTESTMANAGEMENT_H
+#ifndef UTEST_UTESTMANAGEMENT_H
+#define UTEST_UTESTMANAGEMENT_H
 
 #include <string>
 #include "ContainerResult.h"
 
-namespace UnitTestManagement {
+namespace UTestManagement {
 
     void runDocker();
     ContainerResult getContainerReturnCode();

@@ -1,11 +1,11 @@
 #include <iostream>
 #include <fstream>
-#include "UnitTestManagement.h"
+#include "UTestManagement.h"
 #include "Paths.h"
 #include "IOErrors.h"
 #include "Platform.h"
 
-void UnitTestManagement::runDocker() {
+void UTestManagement::runDocker() {
     const std::string sharedFolder{Paths::getSharedFolder()};
     if(sharedFolder.empty()) {
         std::cerr << "Please set shared folder for docker container" << std::endl;
@@ -31,7 +31,7 @@ void UnitTestManagement::runDocker() {
     system(cmd.c_str());
 }
 
-ContainerResult UnitTestManagement::getContainerReturnCode() {
+ContainerResult UTestManagement::getContainerReturnCode() {
     const std::string errorFile{Paths::getSharedFolder() + Paths::getPlatformSlash() + "err_output.txt"};
     std::ifstream inputStream{errorFile};
     int outputValue{0};
@@ -51,7 +51,7 @@ ContainerResult UnitTestManagement::getContainerReturnCode() {
     return ContainerResult::RUNTIME_ERR;
 }
 
-void UnitTestManagement::recreateSharedDirectory() {
+void UTestManagement::recreateSharedDirectory() {
     #if defined (WINDOWS)
         system(("rmdir "+Paths::getSharedFolder()+" /S /Q").c_str());
     #elif defined (UNIX)
@@ -68,7 +68,7 @@ std::string & getRequiredTestName() {
 
 static constexpr char testNameFile[] = "test_name.txt";
 
-void UnitTestManagement::writeTestNameToFile(const std::string &testName) {
+void UTestManagement::writeTestNameToFile(const std::string &testName) {
     std::cout << "test name : " << testName << std::endl;
     const std::string outputPath{Paths::getSharedFolder() + Paths::getPlatformSlash() + testNameFile};
     std::ofstream outputStream(outputPath);
@@ -81,7 +81,7 @@ void UnitTestManagement::writeTestNameToFile(const std::string &testName) {
     outputStream.close();
 }
 
-bool UnitTestManagement::isTestNameCorrect(const std::string &realTestName) {
+bool UTestManagement::isTestNameCorrect(const std::string &realTestName) {
     if (getRequiredTestName().empty()) {
         std::ifstream inputStream(testNameFile);
         if (inputStream.good()) {
@@ -95,7 +95,7 @@ bool UnitTestManagement::isTestNameCorrect(const std::string &realTestName) {
     return (getRequiredTestName() == realTestName);
 }
 
-void UnitTestManagement::removeContainers() {
+void UTestManagement::removeContainers() {
     static std::string removeCommand;
     #if defined (WINDOWS)
         removeCommand = "PowerShell docker rm $(docker ps -a --filter ancestor=utest-image -q) > $null";

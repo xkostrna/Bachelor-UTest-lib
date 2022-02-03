@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include "Serialize.h"
-#include "UnitTestManagement.h"
+#include "UTestManagement.h"
 #include "AssertFailedException.h"
 #include "UTestResult.h"
 #include "UTestCase.h"
@@ -27,9 +27,9 @@ protected:
     }
 
     void runUser(const std::string& testName) {
-        UnitTestManagement::writeTestNameToFile(testName);
-        UnitTestManagement::runDocker();
-        const ContainerResult containerResult{UnitTestManagement::getContainerReturnCode()};
+        UTestManagement::writeTestNameToFile(testName);
+        UTestManagement::runDocker();
+        const ContainerResult containerResult{UTestManagement::getContainerReturnCode()};
         if (containerResult == ContainerResult::OK) {
             tryDeserialize(testName);
         } else if (containerResult == ContainerResult::CODE_TIMEOUT) {
@@ -39,12 +39,12 @@ protected:
         } else {
             UTestResult::add(testName, UTestCase::FAILED, 0, "Run time error");
         }
-        UnitTestManagement::removeContainers();
-        UnitTestManagement::recreateSharedDirectory();
+        UTestManagement::removeContainers();
+        UTestManagement::recreateSharedDirectory();
     }
 
     void runContainer(const std::string& testName) {
-        if (UnitTestManagement::isTestNameCorrect(testName)) {
+        if (UTestManagement::isTestNameCorrect(testName)) {
             TYPE realValue{this->container()};
             Serialize::serialize(realValue);
             exit(0);

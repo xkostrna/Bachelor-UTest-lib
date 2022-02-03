@@ -15,8 +15,8 @@ add_library(UTest STATIC
         Serialize.h
         Serialize.cpp
         UTestCase.h
-        UnitTestManagement.h
-        UnitTestManagement.cpp
+        UTestManagement.h
+        UTestManagement.cpp
         UTest.h
         UTestMacro.h
         UTestResult.cpp

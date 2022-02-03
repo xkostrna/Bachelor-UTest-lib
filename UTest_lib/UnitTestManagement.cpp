@@ -7,6 +7,10 @@
 
 void UnitTestManagement::runDocker() {
     const std::string sharedFolder{Paths::getSharedFolder()};
+    if(sharedFolder.empty()) {
+        std::cerr << "Please set shared folder for docker container" << std::endl;
+        exit(-1);
+    }
     const std::string appFolder{Paths::getAppFolder()};
     std::string cmd;
 

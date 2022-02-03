@@ -32,7 +32,7 @@ development process.
 
 University : STU <br>
 Faculty : FEI <br>
-Authors : Tomáš Koštrna <br>
+Author : Tomáš Koštrna <br>
 Leader : Ing. Vladislav Novák
 
 

@@ -31,7 +31,7 @@ protected:
         UTestManagement::runDocker();
         const ContainerResult containerResult{UTestManagement::getContainerReturnCode()};
         if (containerResult == ContainerResult::OK) {
-            tryDeserialize(testName);
+            runUserPartOfUnitTest(testName);
         } else if (containerResult == ContainerResult::CODE_TIMEOUT) {
             UTestResult::add(testName, UTestCase::FAILED, 0, "Code timeout");
         } else if (containerResult == ContainerResult::MAKE_ERR) {
@@ -55,7 +55,7 @@ protected:
     virtual void user(TYPE realValue) = 0;
 
 private:
-    void tryDeserialize(const std::string & testName) {
+    void runUserPartOfUnitTest(const std::string & testName) {
         try {
             TYPE realValue = Serialize::deserialize<TYPE>();
             this->user(realValue);
